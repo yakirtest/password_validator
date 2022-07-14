@@ -1,7 +1,6 @@
 import sys
 import re
 
-
 def Red(mess)-> str:
     """
     function that colors red text
@@ -28,7 +27,7 @@ def password_validator (passW:str):
 
     least one capital letter between A-Z.
 
-    :param passW: str
+    :param passW: str: Password
     :return:None
     """
     error_mess = "Password error not verified You must enter at:\n"
@@ -51,6 +50,24 @@ def password_validator (passW:str):
         sys.stdout.writelines(Green("Password verified!!."))
         sys.exit()
 
+def Read_file(path:str)->str:
+    """
+    function File reading
+    :param path: str: path of a file
+    :return: str: Text in file
+    """
+    with open(path, "r") as file:
+      return file.readline()
+
+
 if __name__ == '__main__':
 
-    password_validator(sys.argv[1])
+    if len(sys.argv) <= 3 and len(sys.argv)>1:
+        if sys.argv[1] == "-f":
+            password_validator(Read_file(sys.argv[2]))
+        else:
+            password_validator(sys.argv[1])
+    else:
+        sys.exit(Red("Error You must submit one or two arguments"
+                     "\n 1 argument to a password"
+                     "\n 2 arguments [-f] and path of a file .txt"))
